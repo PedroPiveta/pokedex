@@ -2,10 +2,20 @@ import { useState, useEffect } from "react";
 import useFetch from "../hooks/useFetch";
 import { css } from "@stitches/react";
 
-const pokemonCard = css({
+const pokemonCards = css({
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
     listStyle: "none",
+});
+
+const pokemonCard = css({
+    display: "flex",
+    flexDirection: "column",
+    border: "1px solid black",
+    padding: "1rem",
+    margin: "1rem",
+    borderRadius: "5px",
+    textTransform: "capitalize",
 })
 
 const PokemonCard = () => {
@@ -42,9 +52,9 @@ const PokemonCard = () => {
       {pokemon && (
         <div>
           <h1>Pokémons</h1>
-          <ul className={pokemonCard()}>
+          <ul className={pokemonCards()}>
             {pokemon.results.map((pokemon, index) => (
-              <li key={pokemon.name}>
+              <li className={pokemonCard()} key={pokemon.name}>
                 {pokemon.name}
                 {spriteLinks[index] && (
                   <img src={spriteLinks[index]} alt="pokemon" />
