@@ -22,7 +22,7 @@ const pokemonCard = css({
     "&:hover": {
         boxShadow: "3px 3px 10px rgba(0, 0, 0, 0.5)",
     }
-})
+});
 
 const PokemonCard = () => {
     const [pokemonList, setPokemonList] = useState([]);
@@ -36,7 +36,7 @@ const PokemonCard = () => {
             const isAtBottom = scrollTop + clientHeight >= scrollHeight;
 
             if (isAtBottom && !loading && !error && limit < pokemon.count) {
-                setLimit(prevLimit => prevLimit + 12);
+                setLimit(prevLimit => prevLimit + 18);
             }
         }
 
