@@ -6,7 +6,7 @@ const globalStyles = globalCss({
 
   html: {
     colorScheme: 'light dark',
-    scrollBehavior: 'unset',
+    scrollBehavior: 'auto',
   },
 
   body: {
