@@ -1,28 +1,26 @@
-import  useFetch from './hooks/useFetch'
+import PokemonCard from './components/PokemonCard';
+import { globalCss } from '@stitches/react';
+
+const globalStyles = globalCss({
+  '*': { margin: 0, padding: 0 },
+
+  html: {
+    colorScheme: 'light dark',
+    scrollBehavior: 'unset',
+  },
+
+  body: {
+    fontFamily: 'system-ui',
+  }
+});
+
+globalStyles();
 
 function App() {
-
-  const { data, loading, error } = useFetch("https://pokeapi.co/api/v2/pokemon/");
-
-  console.log(data)
-
   return (
     <>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error...</p>}
-      {data && (
-        <div>
-          <h1>Pokemons</h1>
-          <ul>
-            {data.results.map((pokemon) => (
-              <li key={pokemon.name}>{pokemon.name}</li>
-            ))
-            }
-          </ul>
-        </div>
-      )}
+      <PokemonCard />
     </>
   )
 }
-
 export default App
