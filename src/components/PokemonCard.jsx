@@ -36,7 +36,7 @@ const PokemonCard = () => {
             const isAtBottom = scrollTop + clientHeight >= scrollHeight;
 
             if (isAtBottom && !loading && !error && limit < pokemon.count) {
-                setLimit(prevLimit => prevLimit + 18);
+                setLimit(prevLimit => prevLimit + 12);
             }
         }
 
@@ -70,17 +70,18 @@ const PokemonCard = () => {
 
     return (
         <>
+            <h1>Pokédex with PokéApi by <a href="https://github.com/PedroPiveta" target="_blank" rel="noreferrer" >Pedro Piveta</a></h1>
             {loading && <p>Loading...</p>}
             {error && <p>Error...</p>}
             {pokemonList && (
                 <div>
-                    <h1>Pokémons</h1>
                     {/* <button onClick={loadMore} >Load</button> */}
                     <ul className={pokemonCards()}>
                         {pokemonList.map((pokemon, index) => (
                             <li className={pokemonCard()} key={index}>
                                 {pokemon.name}
                                 <img src={pokemon.sprites.front_default} alt="pokemon" />
+                                <p>Heigth: {pokemon.height}</p>
                             </li>
                         ))}
                     </ul>
