@@ -11,6 +11,7 @@ const globalStyles = globalCss({
 
   body: {
     fontFamily: 'system-ui',
+    marginBottom: 48,
   }
 });
 
