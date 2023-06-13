@@ -19,59 +19,75 @@ const pokemonCard = css({
     textTransform: "capitalize",
     transition: "box-shadow 0.3s ease-out",
 
-    "&:hover" : {
+    "&:hover": {
         boxShadow: "3px 3px 10px rgba(0, 0, 0, 0.5)",
     }
 })
 
 const PokemonCard = () => {
-  const { data: pokemon, loading, error } = useFetch("https://pokeapi.co/api/v2/pokemon/");
-  const [spriteLinks, setSpriteLinks] = useState([]);
+    const [pokemonList, setPokemonList] = useState([]);
+    const [offset, setOffset] = useState(0);
+    const [limit, setLimit] = useState(18);
+    const { data: pokemon, loading, error } = useFetch(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`);
 
-  useEffect(() => {
-    async function fetchSprites() {
-      try {
-        if (pokemon && pokemon.results) {
-          const links = await Promise.all(
-            pokemon.results.map(async (pokemonData) => {
-              const response = await fetch(pokemonData.url);
-              const spriteData = await response.json();
-              const sprite = spriteData.sprites.front_default;
-              return sprite;
-            })
-          );
+    useEffect(() => {
+        function handleScroll() {
+            const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+            const isAtBottom = scrollTop + clientHeight >= scrollHeight;
 
-          setSpriteLinks(links);
+            if (isAtBottom && !loading && !error && limit < pokemon.count) {
+                setLimit(prevLimit => prevLimit + 18);
+            }
         }
-      } catch (error) {
-        console.log(error);
-      }
-    }
 
-    fetchSprites();
-  }, [pokemon]);
+        window.addEventListener("scroll", handleScroll);
 
-  return (
-    <>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error...</p>}
-      {pokemon && (
-        <div>
-          <h1>Pokémons</h1>
-          <ul className={pokemonCards()}>
-            {pokemon.results.map((pokemon, index) => (
-              <li className={pokemonCard()} key={pokemon.name}>
-                {pokemon.name}
-                {spriteLinks[index] && (
-                  <img src={spriteLinks[index]} alt="pokemon" />
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </>
-  );
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [loading, error, limit, pokemon]);
+
+
+    useEffect(() => {
+        async function fetchPokemon() {
+            try {
+                if (pokemon && pokemon.results) {
+                    const pokemonData = await Promise.all(
+                        pokemon.results.map(async (pokemonData) => {
+                            const response = await fetch(pokemonData.url);
+                            const data = await response.json();
+                            return data;
+                        })
+                    );
+                    setPokemonList(pokemonData);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchPokemon();
+    }, [pokemon]);
+
+    return (
+        <>
+            {loading && <p>Loading...</p>}
+            {error && <p>Error...</p>}
+            {pokemonList && (
+                <div>
+                    <h1>Pokémons</h1>
+                    {/* <button onClick={loadMore} >Load</button> */}
+                    <ul className={pokemonCards()}>
+                        {pokemonList.map((pokemon, index) => (
+                            <li className={pokemonCard()} key={index}>
+                                {pokemon.name}
+                                <img src={pokemon.sprites.front_default} alt="pokemon" />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </>
+    );
 };
 
 export default PokemonCard;
