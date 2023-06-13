@@ -12,10 +12,16 @@ const pokemonCard = css({
     display: "flex",
     flexDirection: "column",
     border: "1px solid black",
+    boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.25)",
     padding: "1rem",
     margin: "1rem",
     borderRadius: "5px",
     textTransform: "capitalize",
+    transition: "box-shadow 0.3s ease-out",
+
+    "&:hover" : {
+        boxShadow: "3px 3px 10px rgba(0, 0, 0, 0.5)",
+    }
 })
 
 const PokemonCard = () => {

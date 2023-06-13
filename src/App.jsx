@@ -3,6 +3,11 @@ import { globalCss } from '@stitches/react';
 
 const globalStyles = globalCss({
   '*': { margin: 0, padding: 0 },
+
+  html: {
+    colorScheme: 'light dark',
+  },
+
   body: {
     fontFamily: 'system-ui',
   }
