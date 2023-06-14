@@ -1,5 +1,7 @@
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PokemonCard from './components/PokemonCard';
 import { globalCss } from '@stitches/react';
+import PokemonDetails from './pages/PokemonDetails';
 
 const globalStyles = globalCss({
   '*': { margin: 0, padding: 0 },
@@ -19,9 +21,12 @@ globalStyles();
 
 function App() {
   return (
-    <>
-      <PokemonCard />
-    </>
+    <Router>
+      <Routes>
+        <Route path='/' element={<PokemonCard />} />
+        <Route path='/pokemon/:id' element={<PokemonDetails />} />
+      </Routes>
+    </Router>
   )
 }
 export default App

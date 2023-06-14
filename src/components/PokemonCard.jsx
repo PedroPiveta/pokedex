@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import useFetch from "../hooks/useFetch";
 import { css, keyframes } from "@stitches/react";
 import { UpdateIcon } from "@radix-ui/react-icons";
+import { Link } from "react-router-dom";
 
 const spin = keyframes({
     "0%": { transform: "rotate(0deg)" },
@@ -12,6 +13,8 @@ const pokemonCards = css({
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
     listStyle: "none",
+
+    
 });
 
 const pokemonCard = css({
@@ -27,7 +30,13 @@ const pokemonCard = css({
 
     "&:hover": {
         boxShadow: "3px 3px 10px rgba(0, 0, 0, 0.5)",
-    }
+    },
+
+    "& a": {
+        textDecoration: "none",
+        color: "white",
+    },
+
 });
 
 const buttonContainer = css({
@@ -65,6 +74,7 @@ const button = css({
 
 const PokemonCard = () => {
     const [pokemonList, setPokemonList] = useState([]);
+    // eslint-disable-next-line no-unused-vars
     const [offset, setOffset] = useState(0);
     const [generating, setGenerating] = useState(false);
     const [limit, setLimit] = useState(18);
@@ -72,7 +82,7 @@ const PokemonCard = () => {
 
     const handleGenerate = () => {
         setGenerating(true);
-        setTimeout(() => { 
+        setTimeout(() => {
             setLimit(prevLimit => prevLimit + 18);
             setGenerating(false);
         }, 500);
@@ -126,18 +136,20 @@ const PokemonCard = () => {
                     <ul className={pokemonCards()}>
                         {pokemonList.map((pokemon, index) => (
                             <li className={pokemonCard()} key={index}>
-                                <h2>{pokemon.name}</h2>
-                                <img src={pokemon.sprites.front_default} alt="pokemon" />
-                                <p>Heigth: {pokemon.height}</p>
-                                <h3>Type:</h3>{pokemon.types.map((pokemon, index) => (
-                                    <p key={index}>{pokemon.type.name}</p>
-                                ))}
-                                <h3>Abilities:</h3>
-                                {
-                                    pokemon.abilities.map((ability, index) => (
-                                        <p key={index}>{ability.ability.name}</p>
-                                    ))
-                                }
+                                <Link to={`/pokemon/${pokemon.id}`} >
+                                    <h2>{pokemon.name}</h2>
+                                    <img src={pokemon.sprites.front_default} alt="pokemon" />
+                                    <p>Heigth: {pokemon.height}</p>
+                                    <h3>Type:</h3>{pokemon.types.map((pokemon, index) => (
+                                        <p key={index}>{pokemon.type.name}</p>
+                                    ))}
+                                    <h3>Abilities:</h3>
+                                    {
+                                        pokemon.abilities.map((ability, index) => (
+                                            <p key={index}>{ability.ability.name}</p>
+                                        ))
+                                    }
+                                </Link>
                             </li>
                         ))}
                     </ul>
