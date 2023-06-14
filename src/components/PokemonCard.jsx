@@ -136,7 +136,6 @@ const PokemonCard = () => {
             {error && <p>Error...</p>}
             {pokemonList && (
                 <div>
-                    {/* <button onClick={loadMore} >Load</button> */}
                     <ul className={pokemonCards()}>
                         {pokemonList.map((pokemon, index) => (
                             <li className={pokemonCard()} key={index}>
@@ -147,7 +146,9 @@ const PokemonCard = () => {
                                             <abbr title={pokemon.type.name}><img key={index} src={`/sprites/${pokemon.type.name}.png`} alt="" /></abbr>
                                         </div>
                                     ))}
-                                    <div className="sprite"><img src={pokemon.sprites.front_default} alt="pokemon" /></div>
+                                    <div className="sprite">
+                                        <img src={pokemon.sprites.front_default} alt="pokemon" />
+                                    </div>
                                 </Link>
                             </li>
                         ))}
