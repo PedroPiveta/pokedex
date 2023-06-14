@@ -11,7 +11,7 @@ const spin = keyframes({
 
 const pokemonCards = css({
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
     listStyle: "none",
 });
 
@@ -147,7 +147,7 @@ const PokemonCard = () => {
                                             <abbr title={pokemon.type.name}><img key={index} src={`/sprites/${pokemon.type.name}.png`} alt="" /></abbr>
                                         </div>
                                     ))}
-                                    <img src={pokemon.sprites.front_default} alt="pokemon" />
+                                    <div className="sprite"><img src={pokemon.sprites.front_default} alt="pokemon" /></div>
                                 </Link>
                             </li>
                         ))}
