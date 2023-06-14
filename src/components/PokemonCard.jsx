@@ -139,16 +139,9 @@ const PokemonCard = () => {
                                 <Link to={`/pokemon/${pokemon.id}`} >
                                     <h2>{pokemon.name}</h2>
                                     <img src={pokemon.sprites.front_default} alt="pokemon" />
-                                    <p>Heigth: {pokemon.height}</p>
                                     <h3>Type:</h3>{pokemon.types.map((pokemon, index) => (
                                         <p key={index}>{pokemon.type.name}</p>
                                     ))}
-                                    <h3>Abilities:</h3>
-                                    {
-                                        pokemon.abilities.map((ability, index) => (
-                                            <p key={index}>{ability.ability.name}</p>
-                                        ))
-                                    }
                                 </Link>
                             </li>
                         ))}
