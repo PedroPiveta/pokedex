@@ -144,7 +144,7 @@ const PokemonCard = () => {
                                     <h2>{pokemon.name}</h2>
                                     {pokemon.types.map((pokemon, index) => (
                                         <div className="types" key={index}>
-                                            <img key={index} src={`/sprites/${pokemon.type.name}.png`} alt="" />
+                                            <abbr title={pokemon.type.name}><img key={index} src={`/sprites/${pokemon.type.name}.png`} alt="" /></abbr>
                                         </div>
                                     ))}
                                     <img src={pokemon.sprites.front_default} alt="pokemon" />
