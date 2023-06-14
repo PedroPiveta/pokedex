@@ -7,8 +7,15 @@ const pokemonDetails = css({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    textTransform: "capitalize",    
+    textTransform: "capitalize",
     margin: "2rem",
+
+    "& span" : {
+        display: "flex",
+        alignItems: "center",
+        // justifyContent: "center",
+        gap: ".5em",
+    },
 });
 
 const PokemonDetails = () => {
@@ -16,7 +23,7 @@ const PokemonDetails = () => {
 
 
     const { id } = useParams();
-    const {data: pokemon, loading, error} = useFetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const { data: pokemon, loading, error } = useFetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
 
     useEffect(() => {
         if (pokemon) {
@@ -27,7 +34,7 @@ const PokemonDetails = () => {
     }, [pokemon]);
 
 
-    return ( 
+    return (
         <div className={pokemonDetails()}>
             {loading && <div>Loading ...</div>}
             {error && <div>Something went wrong ...</div>}
@@ -36,7 +43,10 @@ const PokemonDetails = () => {
                     <h1>{pokemon.name}</h1>
 
                     <h2>Types:</h2>{pokemon.types.map((pokemon, index) => (
-                        <p key={index}>{pokemon.type.name}</p>
+                        <span key={index}>
+                            {pokemon.type.name}
+                            <img src={`/sprites/${pokemon.type.name}.png`} alt="" />
+                        </span>
                     ))}
 
                     <h2>Sprites:</h2>
@@ -47,7 +57,7 @@ const PokemonDetails = () => {
                     }
                     {/* <img src={pokemon.sprites.front_default} alt={pokemon.name} /> */}
                     <p>Heigth: {pokemon.height}</p>
-                    
+
                     <h3>Abilities:</h3>
                     {
                         pokemon.abilities.map((ability, index) => (
@@ -57,7 +67,7 @@ const PokemonDetails = () => {
                 </div>
             )}
         </div>
-     );
+    );
 }
- 
+
 export default PokemonDetails;

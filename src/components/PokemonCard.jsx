@@ -37,11 +37,8 @@ const pokemonCard = css({
         color: "white",
     },
 
-    "& p": {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: ".5em",
+    "& .types": {
+        display: "inline-block",
     },
 
 });
@@ -145,12 +142,12 @@ const PokemonCard = () => {
                             <li className={pokemonCard()} key={index}>
                                 <Link to={`/pokemon/${pokemon.id}`} >
                                     <h2>{pokemon.name}</h2>
-                                    <img src={pokemon.sprites.front_default} alt="pokemon" />
-                                    <h3>Types:</h3>{pokemon.types.map((pokemon, index) => (
-                                        <p key={index}>{pokemon.type.name}
-                                            <img src={`/sprites/${pokemon.type.name}.png`} alt="" />
-                                        </p>
+                                    {pokemon.types.map((pokemon, index) => (
+                                        <div className="types" key={index}>
+                                            <img key={index} src={`/sprites/${pokemon.type.name}.png`} alt="" />
+                                        </div>
                                     ))}
+                                    <img src={pokemon.sprites.front_default} alt="pokemon" />
                                 </Link>
                             </li>
                         ))}
