@@ -41,6 +41,130 @@ const pokemonCard = css({
         display: "inline-block",
     },
 
+    variants: {
+        type: {
+            normal: {
+                background: "linear-gradient(180deg, #a4acaf, #a4acaf 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#a4acaf",
+                },
+            },
+            fighting: {
+                background: "linear-gradient(180deg, #d56723, #d56723 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#d56723",
+                },
+            },
+            flying: {
+                background: "linear-gradient(180deg, #3dc7ef, #3dc7ef 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#3dc7ef",
+                },
+            },
+            poison: {
+                background: "linear-gradient(180deg, #b97fc9, #b97fc9 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#b97fc9",
+                },
+            },
+            ground: {
+                background: "linear-gradient(180deg, #f7de3f, #f7de3f 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#f7de3f",
+                },
+            },
+            rock: {
+                background: "linear-gradient(180deg, #a38c21, #a38c21 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#a38c21",
+                },
+            },
+            bug: {
+                background: "linear-gradient(180deg, #729f3f, #729f3f 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#729f3f",
+                },
+            },
+            ghost: {
+                background: "linear-gradient(180deg, #7b62a3, #7b62a3 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#7b62a3",
+                },
+            },
+            steel: {
+                background: "linear-gradient(180deg, #9eb7b8, #9eb7b8 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#9eb7b8",
+                },
+            },
+            fire: {
+                background: "linear-gradient(180deg, #fd7d24, #fd7d24 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#fd7d24",
+                },
+            },
+            water: {
+                background: "linear-gradient(180deg, #4592c4, #4592c4 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#4592c4",
+                },
+            },
+            grass: {
+                background: "linear-gradient(180deg, #9bcc50, #9bcc50 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#9bcc50",
+                },
+            },
+            electric: {
+                background: "linear-gradient(180deg, #eed535, #eed535 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#eed535",
+                },
+            },
+            psychic: {
+                background: "linear-gradient(180deg, #f366b9, #f366b9 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#f366b9",
+                },
+            },
+            ice: {
+                background: "linear-gradient(180deg, #51c4e7, #51c4e7 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#51c4e7",
+                },
+            },
+            dragon: {
+                background: "linear-gradient(180deg, #f16e57, #f16e57 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#f16e57",
+                },
+            },
+            dark: {
+                background: "linear-gradient(180deg, #707070, #707070 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#707070",
+                },
+            },
+            fairy: {
+                background: "linear-gradient(180deg, #fdb9e9, #fdb9e9 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#fdb9e9",
+                },
+            },
+            unknown: {
+                background: "linear-gradient(180deg, #68a090, #68a090 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#68a090",
+                },
+            },
+            shadow: {
+                background: "linear-gradient(180deg, #707070, #707070 50%, #fff 50%)",
+                "&:hover": {
+                    background: "#707070",
+                },
+            },
+        },
+    },
 });
 
 const buttonContainer = css({
@@ -90,24 +214,7 @@ const PokemonCard = () => {
             setLimit(prevLimit => prevLimit + 18);
             setGenerating(false);
         }, 500);
-    }
-
-    // useEffect(() => {
-    //     function handleScroll() {
-    //         const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-    //         const isAtBottom = scrollTop + clientHeight >= scrollHeight;
-    //         if (isAtBottom && !loading && !error && limit < pokemon.count) {
-    //             handleGenerate()
-    //         }
-    //     }
-
-    //     window.addEventListener("scroll", handleScroll);
-
-    //     return () => {
-    //         window.removeEventListener("scroll", handleScroll);
-    //     };
-    // }, [loading, error, limit, pokemon]);
-
+    };
 
     useEffect(() => {
         async function fetchPokemon() {
@@ -137,21 +244,25 @@ const PokemonCard = () => {
             {pokemonList && (
                 <div>
                     <ul className={pokemonCards()}>
-                        {pokemonList.map((pokemon, index) => (
-                            <li className={pokemonCard()} key={index}>
-                                <Link to={`/pokemon/${pokemon.id}`} >
-                                    <h2>{pokemon.name}</h2>
-                                    {pokemon.types.map((pokemon, index) => (
-                                        <div className="types" key={index}>
-                                            <abbr title={pokemon.type.name}><img key={index} src={`/sprites/${pokemon.type.name}.png`} alt="" /></abbr>
+                        {pokemonList.map((pokemon, index) => {
+                            const type = pokemon.types[0].type.name;
+
+                            return (
+                                <li className={pokemonCard({ type: type })} key={index}>
+                                    <Link to={`/pokemon/${pokemon.id}`} >
+                                        <h2>{pokemon.name}</h2>
+                                        {pokemon.types.map((pokemon, index) => (
+                                            <div className="types" key={index}>
+                                                <abbr title={pokemon.type.name}><img key={index} src={`/sprites/${pokemon.type.name}.png`} alt="" /></abbr>
+                                            </div>
+                                        ))}
+                                        <div className="sprite">
+                                            <img src={pokemon.sprites.front_default} alt="pokemon" />
                                         </div>
-                                    ))}
-                                    <div className="sprite">
-                                        <img src={pokemon.sprites.front_default} alt="pokemon" />
-                                    </div>
-                                </Link>
-                            </li>
-                        ))}
+                                    </Link>
+                                </li>
+                            )
+                        })}
                     </ul>
                 </div>
             )}
