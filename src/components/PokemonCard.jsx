@@ -29,7 +29,7 @@ const pokemonCard = css({
     transition: "box-shadow 0.3s ease-out",
 
     "&:hover": {
-        boxShadow: "3px 3px 10px rgba(0, 0, 0, 0.5)",
+        boxShadow: "3px 3px 10px rgba(0, 150, 0, 0.5)",
     },
 
     "& a": {
